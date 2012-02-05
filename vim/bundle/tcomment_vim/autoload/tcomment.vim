@@ -3,8 +3,8 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2007-09-17.
-" @Last Change: 2011-12-23.
-" @Revision:    0.0.436
+" @Last Change: 2012-01-23.
+" @Revision:    0.0.439
 
 " call tlog#Log('Load: '. expand('<sfile>')) " vimtlib-sfile
 
@@ -123,8 +123,6 @@ if !exists("g:tcommentLineC")
                 \ }
 endif
 if !exists("g:tcommentBlockC")
-    " Generic c-like block comments.
-    " :read: let g:tcommentBlockC = {...}   "{{{2
     let g:tcommentBlockC = {
                 \ 'commentstring': '/*%s */',
                 \ 'middle': ' * ',
@@ -312,6 +310,7 @@ call tcomment#DefineType('php_block',        g:tcommentBlockC   )
 call tcomment#DefineType('php_2_block',      g:tcommentBlockC2  )
 call tcomment#DefineType('po',               '# %s'             )
 call tcomment#DefineType('prolog',           '%% %s'            )
+call tcomment#DefineType('puppet',           '# %s'             )
 call tcomment#DefineType('python',           '# %s'             )
 call tcomment#DefineType('rc',               '// %s'            )
 call tcomment#DefineType('readline',         '# %s'             )
@@ -883,9 +882,9 @@ function! s:ProcessedLine(uncomment, match, checkRx, replace)
     " TLogVAR pe, md, a:match
     " TLogVAR rv
     if v:version > 702 || (v:version == 702 && has('patch407'))
-        let rv = escape(rv, '')
+        let rv = escape(rv, "\r")
     else
-        let rv = escape(rv, '\')
+        let rv = escape(rv, "\\r")
     endif
     " TLogVAR rv
     " let rv = substitute(rv, '\n', '\\\n', 'g')
