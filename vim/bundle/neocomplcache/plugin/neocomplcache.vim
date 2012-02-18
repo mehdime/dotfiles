@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 05 Feb 2012.
+" Last Modified: 16 Feb 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -47,6 +47,29 @@ command! -nargs=0 NeoComplCacheToggle call neocomplcache#toggle_lock()
 command! -nargs=1 NeoComplCacheLockSource call neocomplcache#lock_source(<q-args>)
 command! -nargs=1 NeoComplCacheUnlockSource call neocomplcache#unlock_source(<q-args>)
 
+" Warning if using obsolute mappings."{{{
+inoremap <unique> <Plug>(neocomplcache_snippets_expand)
+      \ <C-o>:echoerr <SID>print_snippets_complete_error()<CR>
+snoremap <unique> <Plug>(neocomplcache_snippets_expand)
+      \ :<C-u>:echoerr <SID>print_snippets_complete_error()<CR>
+inoremap <unique> <Plug>(neocomplcache_snippets_jump)
+      \ <C-o>:echoerr <SID>print_snippets_complete_error()<CR>
+snoremap <unique> <Plug>(neocomplcache_snippets_jump)
+      \ :<C-u>:echoerr <SID>print_snippets_complete_error()<CR>
+inoremap <unique> <Plug>(neocomplcache_snippets_force_expand)
+      \ <C-o>:echoerr <SID>print_snippets_complete_error()<CR>
+snoremap <unique> <Plug>(neocomplcache_snippets_force_expand)
+      \ :<C-u>:echoerr <SID>print_snippets_complete_error()<CR>
+inoremap <unique> <Plug>(neocomplcache_snippets_force_jump)
+      \ <C-o>:echoerr <SID>print_snippets_complete_error()<CR>
+snoremap <unique> <Plug>(neocomplcache_snippets_force_jump)
+      \ :<C-u>:echoerr <SID>print_snippets_complete_error()<CR>
+function! s:print_snippets_complete_error()
+  return 'Warning: neocomplcache snippets source was splitted!'
+      \ .' You should install snippets_complete source from'
+      \ .' "https://github.com/Shougo/neocomplcache-snippets-complete"'
+endfunction"}}}
+
 " Global options definition."{{{
 let g:neocomplcache_max_list =
       \ get(g:, 'neocomplcache_max_list', 100)
@@ -57,7 +80,7 @@ let g:neocomplcache_max_menu_width =
 let g:neocomplcache_auto_completion_start_length =
       \ get(g:, 'neocomplcache_auto_completion_start_length', 2)
 let g:neocomplcache_manual_completion_start_length =
-      \ get(g:, 'neocomplcache_manual_completion_start_length', 2)
+      \ get(g:, 'neocomplcache_manual_completion_start_length', 0)
 let g:neocomplcache_min_keyword_length =
       \ get(g:, 'neocomplcache_min_keyword_length', 4)
 let g:neocomplcache_enable_ignore_case =
@@ -76,6 +99,8 @@ let g:neocomplcache_enable_fuzzy_completion =
       \ get(g:, 'neocomplcache_enable_fuzzy_completion', 0)
 let g:neocomplcache_enable_caching_message =
       \ get(g:, 'neocomplcache_enable_caching_message', 1)
+let g:neocomplcache_enable_insert_char_pre =
+      \ get(g:, 'neocomplcache_enable_insert_char_pre', 0)
 let g:neocomplcache_enable_cursor_hold_i =
       \ get(g:, 'neocomplcache_enable_cursor_hold_i', 0)
 let g:neocomplcache_cursor_hold_i_time =

@@ -28,13 +28,15 @@ git_bundles = %w{
   git://github.com/nelstrom/vim-textobj-rubyblock.git
   git://github.com/jgdavey/vim-blockle.git
   git://github.com/Shougo/neocomplcache.git
-  git://github.com/sickill/vim-pasta.git"
+  git://github.com/sickill/vim-pasta.git
+  git://github.com/ecomba/vim-ruby-refactoring.git
 }
 
 require 'fileutils'
 require 'open-uri'
 
-File.join(File.dirname(__FILE__), "bundle")
+bundles_dir = File.join(File.dirname(__FILE__), "bundle")
+
 FileUtils.rm_rf(bundles_dir)
 FileUtils.mkdir(bundles_dir)
 FileUtils.cd(bundles_dir)
