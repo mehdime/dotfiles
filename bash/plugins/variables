@@ -18,6 +18,7 @@ export LESS="-X -M -E -R"
 export LESSOPEN="| $HOME/bin/lesspipe.sh %s"
 export LS_OPTIONS="--color=yes  -F -b -T 0"
 
+export PATH=~/.rbenv/shims:$PATH
 export PATH=~/bin:$PATH
 
 [ $TERM = "screen" ] && export TERM=xterm
