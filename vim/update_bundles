@@ -1,10 +1,17 @@
 #!/usr/bin/env ruby
 
 git_bundles = %w{
-  git://github.com/astashov/vim-ruby-debugger.git
+  git://github.com/Shougo/neocomplcache.git
+  git://github.com/ecomba/vim-ruby-refactoring.git
   git://github.com/godlygeek/tabular.git
+  git://github.com/jgdavey/vim-blockle.git
+  git://github.com/kana/vim-textobj-user.git
+  git://github.com/kchmck/vim-coffee-script.git
+  git://github.com/kien/ctrlp.vim.git
+  git://github.com/nelstrom/vim-textobj-rubyblock.git
   git://github.com/pangloss/vim-javascript.git
   git://github.com/scrooloose/nerdtree.git
+  git://github.com/sickill/vim-pasta.git
   git://github.com/timcharper/textile.vim.git
   git://github.com/tomtom/tcomment_vim.git
   git://github.com/tpope/vim-cucumber.git
@@ -24,12 +31,6 @@ git_bundles = %w{
   git://github.com/vim-scripts/Gist.vim.git
   git://github.com/vim-scripts/IndexedSearch.git
   git://github.com/vim-scripts/jQuery.git
-  git://github.com/kana/vim-textobj-user.git
-  git://github.com/nelstrom/vim-textobj-rubyblock.git
-  git://github.com/jgdavey/vim-blockle.git
-  git://github.com/Shougo/neocomplcache.git
-  git://github.com/sickill/vim-pasta.git
-  git://github.com/ecomba/vim-ruby-refactoring.git
 }
 
 require 'fileutils'
