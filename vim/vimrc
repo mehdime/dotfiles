@@ -7,6 +7,8 @@ call pathogen#helptags()
 syntax on
 filetype plugin indent on
 
+nmap <D-t> :tabedit .<CR>
+
 " nocomplcache stuff
 let g:neocomplcache_enable_at_startup = 1
 " Snippets still don't work the way I want - tab doesn't jump to next
@@ -16,6 +18,12 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_auto_completion_start_length = 1
 let g:neocomplcache_enable_auto_select = 0
+
+" CTRL-P
+let g:ctrlp_open_new_file = 't'
+let g:ctrlp_open_multiple_files = 't'
+let g:ctrlp_map = '<D-p>'
+let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'], }
 
 set nocompatible
 set autoread
@@ -47,9 +55,13 @@ set expandtab
 set shiftwidth=2
 set tabstop=2
 set helpheight=1000
+set list
 
 set completeopt=menu,menuone,preview
 set wildmode=longest,list:longest
+
+set cursorcolumn " highlight the screen column of the cursor
+set cursorline   " highlight the screen line of the cursor
 
 setlocal numberwidth=3
 
@@ -68,19 +80,11 @@ nnoremap gk k
 nnoremap gj j
 
 set hlsearch
-set listchars=tab:>-,trail:-
-hi IncSearch term=reverse gui=underline guibg=Blue  guifg=Yellow
-hi    Search term=reverse gui=underline guibg=Black guifg=Yellow
-hi    Visual term=reverse cterm=reverse ctermbg=9 guibg=#555577 guifg=Black
-
-hi Pmenu      guifg=White guibg=Blue
-hi PmenuSel   gui=italic guifg=Yellow guibg=Blue
-hi PmenuSbar  ctermbg=Black guibg=Grey
-hi PmenuThumb guifg=Yellow guibg=Black
+set listchars=tab:××,trail:×,nbsp:×
 
 if has("gui_running")
-  set lines=80 
-  set columns=120 
+  set lines=80
+  set columns=120
   set number
 endif
 
@@ -103,3 +107,7 @@ autocmd BufNewFile,BufRead *.css set fdm=marker fmr={,}
 
 " Fuck tpope
 xmap s <Plug>VSurround
+
+hi IncSearch term=reverse
+hi    Search term=reverse
+hi    Visual term=reverse cterm=reverse ctermbg=9
