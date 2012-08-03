@@ -11,7 +11,6 @@ tmp/email-*.txt
 .bundle
 .sass-cache
 .env
-.bin
 
 !.keep
 !.keepme

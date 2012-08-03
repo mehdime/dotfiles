@@ -59,6 +59,7 @@ set list
 
 set completeopt=menu,menuone,preview
 set wildmode=longest,list:longest
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.storyboard,*.storyboardc,*/vendor/*,*/build/*
 
 set cursorcolumn " highlight the screen column of the cursor
 set cursorline   " highlight the screen line of the cursor
@@ -92,7 +93,7 @@ if has("gui_macvim")
   " write on pretty much any event (including :q) 
   set autowriteall
   set tabpagemax=100
-  set guifont=Monofur:h20
+  set guifont=Monofur:h18
 endif
 
 " Nice statusbar

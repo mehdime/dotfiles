@@ -3,12 +3,19 @@ function __git_dirty {
   [ $? == 1 ] && echo "!"
 }
 
-# Faster, but doesn't work when not on a known branch (or in a rebase)
-# function __git_branch { git status -b | fgrep "On branch" | cut -c 12-; }
+function __git_branch {
+  __git_ps1 " %s"
+}
 
-function __git_branch { __git_ps1 " %s"; }
-
-function __my_ruby_version { rbenv version | cut -f 1 -d " " | cut -f 1 -d "-"; }
+function __my_ruby_version {
+  rbenv version | cut -f 1 -d " " | cut -f 1 -d "-"
+  # local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
+  # [ "$gemset" != "" ] && gemset="@$gemset"
+  # local version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
+  # [ "$version" == "1.8.7" ] && version=""
+  # local full="$version$gemset"
+  # [ "$full" != "" ] && echo "$full "
+}
 
 bash_prompt() {
   local NONE="\[\033[0m\]"    # unsets color to term's fg color
