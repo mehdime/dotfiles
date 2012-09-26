@@ -19,12 +19,15 @@ let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_auto_completion_start_length = 1
 let g:neocomplcache_enable_auto_select = 0
 
+" Powerline
+let g:Powerline_symbols = 'fancy'
+
 " CTRL-P
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_open_multiple_files = 't'
 let g:ctrlp_map = '<D-p>'
 let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'], }
-let g:ctrlp_working_path_mode = '0'
+let g:ctrlp_working_path_mode = 'ra'
 
 set nocompatible
 set autoread
@@ -62,8 +65,8 @@ set completeopt=menu,menuone,preview
 set wildmode=longest,list:longest
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.storyboard,*.storyboardc,*/vendor/*,*/build/*
 
-set cursorcolumn " highlight the screen column of the cursor
-set cursorline   " highlight the screen line of the cursor
+" set cursorcolumn " highlight the screen column of the cursor
+" set cursorline   " highlight the screen line of the cursor
 
 setlocal numberwidth=3
 
@@ -94,7 +97,7 @@ if has("gui_macvim")
   " write on pretty much any event (including :q) 
   set autowriteall
   set tabpagemax=100
-  set guifont=Monofur:h18
+  set guifont=Monofur\ for\ Powerline:h18
 endif
 
 " Nice statusbar
