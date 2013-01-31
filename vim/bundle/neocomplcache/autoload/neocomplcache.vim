@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 17 Dec 2012.
+" Last Modified: 27 Jan 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -33,7 +33,7 @@ set cpo&vim
 
 scriptencoding utf-8
 
-function! s:initialize_variables() "{{{
+function! s:initialize_script_variables() "{{{
   let s:is_enabled = 1
   let s:complfunc_sources = {}
   let s:plugin_sources = {}
@@ -43,29 +43,14 @@ function! s:initialize_variables() "{{{
   let s:use_sources = {}
   let s:filetype_frequencies = {}
   let s:loaded_all_sources = 0
+  let s:runtimepath_save = ''
 
   if has('reltime')
     let s:start_time = reltime()
   endif
 endfunction"}}}
 
-if !exists('s:is_enabled')
-  call s:initialize_variables()
-  let s:is_enabled = 0
-endif
-
-function! neocomplcache#initialize() "{{{
-  call neocomplcache#enable()
-  call s:initialize_sources(get(g:neocomplcache_sources_list,
-        \ neocomplcache#get_context_filetype(), ['_']))
-endfunction"}}}
-
-function! neocomplcache#enable() "{{{
-  if neocomplcache#is_enabled()
-    return
-  endif
-
-  " Auto commands. "{{{
+function! s:initialize_autocmds() "{{{
   augroup neocomplcache
     autocmd!
     autocmd InsertEnter * call s:on_insert_enter()
@@ -95,10 +80,9 @@ function! neocomplcache#enable() "{{{
     autocmd neocomplcache CompleteDone *
           \ call s:on_complete_done()
   endif
-  "}}}
+endfunction"}}}
 
-  call s:initialize_variables()
-
+function! s:initialize_others() "{{{
   " Initialize keyword patterns. "{{{
   call neocomplcache#util#set_default(
         \ 'g:neocomplcache_keyword_patterns', {})
@@ -673,7 +657,7 @@ function! neocomplcache#enable() "{{{
         \ <C-x><C-u><C-r>=neocomplcache#popup_post()<CR>
   inoremap <silent> <Plug>(neocomplcache_start_auto_complete_no_select)
         \ <C-x><C-u><C-p>
-        " \ <C-x><C-u><C-p>
+  " \ <C-x><C-u><C-p>
   inoremap <silent> <Plug>(neocomplcache_start_omni_complete)
         \ <C-x><C-o><C-p>
 
@@ -686,6 +670,47 @@ function! neocomplcache#enable() "{{{
     call neocomplcache#print_error(
           \ 'Detected set paste! Disabled neocomplcache.')
   endif
+endfunction"}}}
+
+if !exists('s:is_enabled')
+  call s:initialize_script_variables()
+  let s:is_enabled = 0
+endif
+
+function! neocomplcache#initialize() "{{{
+  call neocomplcache#enable()
+  call s:initialize_sources(get(g:neocomplcache_sources_list,
+        \ neocomplcache#get_context_filetype(), ['_']))
+endfunction"}}}
+
+function! neocomplcache#lazy_initialize() "{{{
+  if !exists('s:lazy_progress')
+    let s:lazy_progress = 0
+  endif
+
+  if s:lazy_progress == 0
+    call s:initialize_script_variables()
+    let s:is_enabled = 0
+  elseif s:lazy_progress == 1
+    call s:initialize_others()
+  else
+    call s:initialize_autocmds()
+    call s:initialize_sources(get(g:neocomplcache_sources_list,
+          \ neocomplcache#get_context_filetype(), ['_']))
+    let s:is_enabled = 1
+  endif
+
+  let s:lazy_progress += 1
+endfunction"}}}
+
+function! neocomplcache#enable() "{{{
+  if neocomplcache#is_enabled()
+    return
+  endif
+
+  call s:initialize_script_variables()
+  call s:initialize_autocmds()
+  call s:initialize_others()
 endfunction"}}}
 
 function! neocomplcache#disable() "{{{
@@ -905,16 +930,17 @@ function! s:do_auto_complete(event) "{{{
     endif
   endif
 
+  call s:save_foldinfo()
+
   " Set options.
   set completeopt-=menu
   set completeopt-=longest
   set completeopt+=menuone
 
   " Start auto complete.
-  call feedkeys("\<Plug>(neocomplcache_start_auto_complete)")
-  " call feedkeys(g:neocomplcache_enable_auto_select ?
-  "       \ "\<Plug>(neocomplcache_start_auto_complete)":
-  "       \ "\<Plug>(neocomplcache_start_auto_complete_no_select)")
+  call feedkeys(&l:formatoptions !~ 'a' ?
+        \ "\<Plug>(neocomplcache_start_auto_complete)":
+        \ "\<Plug>(neocomplcache_start_auto_complete_no_select)")
 endfunction"}}}
 function! s:check_in_do_auto_complete() "{{{
   if neocomplcache#is_locked()
@@ -2002,11 +2028,6 @@ endfunction"}}}
 
 " Command functions. "{{{
 function! neocomplcache#toggle_lock() "{{{
-  if !neocomplcache#is_enabled()
-    call neocomplcache#enable()
-    return
-  endif
-
   if neocomplcache#get_current_neocomplcache().lock
     echo 'neocomplcache is unlocked!'
     call neocomplcache#unlock()
@@ -2016,18 +2037,10 @@ function! neocomplcache#toggle_lock() "{{{
   endif
 endfunction"}}}
 function! neocomplcache#lock() "{{{
-  if !neocomplcache#is_enabled()
-    return
-  endif
-
   let neocomplcache = neocomplcache#get_current_neocomplcache()
   let neocomplcache.lock = 1
 endfunction"}}}
 function! neocomplcache#unlock() "{{{
-  if !neocomplcache#is_enabled()
-    return
-  endif
-
   let neocomplcache = neocomplcache#get_current_neocomplcache()
   let neocomplcache.lock = 0
 endfunction"}}}
@@ -2381,9 +2394,9 @@ function! s:on_insert_leave() "{{{
   let neocomplcache.old_cur_text = ''
 
   " Restore foldinfo.
-  " Note: settabwinvar() in insert mode has bug.
-  " for tabnr in range(1, tabpagenr('$'))
-  for tabnr in [tabpagenr()]
+  " Note: settabwinvar() in insert mode has bug before 7.3.768.
+  for tabnr in (v:version > 703 || (v:version == 703 && has('patch768')) ?
+        \ range(1, tabpagenr('$')) : [tabpagenr()])
     for winnr in filter(range(1, tabpagewinnr(tabnr, '$')),
           \ "!empty(gettabwinvar(tabnr, v:val, 'neocomplcache_foldinfo'))")
       let neocomplcache_foldinfo =
@@ -2397,14 +2410,21 @@ function! s:on_insert_leave() "{{{
     endfor
   endfor
 endfunction"}}}
-function! s:on_insert_enter() "{{{
-  " Save foldinfo.
-  " Note: settabwinvar() in insert mode has bug.
-  " for tabnr in range(1, tabpagenr('$'))
-  for tabnr in [tabpagenr()]
-    for winnr in filter(range(1, tabpagewinnr(tabnr, '$')),
-          \ "gettabwinvar(tabnr, v:val, '&foldmethod') ==# 'expr' &&
+function! s:save_foldinfo() "{{{
+  " Restore foldinfo.
+  " Note: settabwinvar() in insert mode has bug before 7.3.768.
+  for tabnr in filter((v:version > 703 || (v:version == 703 && has('patch768')) ?
+        \ range(1, tabpagenr('$')) : [tabpagenr()]),
+        \ "index(tabpagebuflist(v:val), bufnr('%')) >= 0")
+    let winnrs = range(1, tabpagewinnr(tabnr, '$'))
+    if tabnr == tabpagenr()
+      call filter(winnrs, "winbufnr(v:val) == bufnr('%')")
+    endif
+    call filter(winnrs, "
+          \  (gettabwinvar(tabnr, v:val, '&foldmethod') ==# 'expr' ||
+          \   gettabwinvar(tabnr, v:val, '&foldmethod') ==# 'syntax') &&
           \  gettabwinvar(tabnr, v:val, '&modifiable')")
+    for winnr in winnrs
       call settabwinvar(tabnr, winnr, 'neocomplcache_foldinfo', {
             \ 'foldmethod' : gettabwinvar(tabnr, winnr, '&foldmethod'),
             \ 'foldexpr'   : gettabwinvar(tabnr, winnr, '&foldexpr')
@@ -2413,7 +2433,8 @@ function! s:on_insert_enter() "{{{
       call settabwinvar(tabnr, winnr, '&foldexpr', 0)
     endfor
   endfor
-
+endfunction"}}}
+function! s:on_insert_enter() "{{{
   if &l:foldmethod ==# 'expr' && foldlevel('.') != 0
     foldopen
   endif
@@ -2728,9 +2749,14 @@ function! neocomplcache#get_current_neocomplcache() "{{{
 endfunction"}}}
 function! s:initialize_sources(source_names) "{{{
   " Initialize sources table.
-  if s:loaded_all_sources
+  if s:loaded_all_sources && &runtimepath ==# s:runtimepath_save
     return
   endif
+
+  let runtimepath_save = neocomplcache#util#split_rtp(s:runtimepath_save)
+  let runtimepath = neocomplcache#util#join_rtp(
+        \ filter(neocomplcache#util#split_rtp(),
+        \ 'index(runtimepath_save, v:val) < 0'))
 
   for name in a:source_names
     if has_key(s:complfunc_sources, name)
@@ -2740,7 +2766,7 @@ function! s:initialize_sources(source_names) "{{{
     endif
 
     " Search autoload.
-    for source_name in map(split(globpath(&runtimepath,
+    for source_name in map(split(globpath(runtimepath,
           \ 'autoload/neocomplcache/sources/*.vim'), '\n'),
           \ "fnamemodify(v:val, ':t:r')")
       if has_key(s:loaded_source_files, source_name)
@@ -2785,6 +2811,7 @@ function! s:initialize_sources(source_names) "{{{
 
     if name == '_'
       let s:loaded_all_sources = 1
+      let s:runtimepath_save = &runtimepath
     endif
   endfor
 endfunction"}}}
@@ -2830,7 +2857,7 @@ endfunction"}}}
 function! s:is_skip_auto_complete(cur_text) "{{{
   let neocomplcache = neocomplcache#get_current_neocomplcache()
 
-  if a:cur_text == ''
+  if a:cur_text =~ '^\s*$\|\s\+$'
         \ || a:cur_text == neocomplcache.old_cur_text
         \ || (g:neocomplcache_lock_iminsert && &l:iminsert)
         \ || (&l:formatoptions =~# '[tc]' && &l:textwidth > 0

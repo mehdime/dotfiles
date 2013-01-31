@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 git_bundles = %w{
+  git://github.com/vim-scripts/molokai.git
   git://github.com/Shougo/neocomplcache.git
   git://github.com/ecomba/vim-ruby-refactoring.git
   git://github.com/godlygeek/tabular.git
@@ -34,7 +35,8 @@ git_bundles = %w{
   git://github.com/vim-scripts/IndexedSearch.git
   git://github.com/vim-scripts/jQuery.git
   git://github.com/Lokaltog/vim-powerline.git
-  git://github.com/bbommarito/vim-slim.git
+  git://github.com/slim-template/vim-slim.git
+  git://github.com/vim-scripts/Windows-PowerShell-Syntax-Plugin.git
 }
 
 require 'fileutils'

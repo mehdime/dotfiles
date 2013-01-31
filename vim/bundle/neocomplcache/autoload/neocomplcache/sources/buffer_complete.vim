@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: buffer_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 29 Nov 2012.
+" Last Modified: 24 Jan 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -45,8 +45,7 @@ function! s:source.initialize() "{{{
     autocmd BufWritePost *
           \ call s:check_recache()
     autocmd InsertEnter,InsertLeave *
-          \ call s:caching_current_buffer(
-          \          line('.') - 1, line('.') + 1)
+          \ call neocomplcache#sources#buffer_complete#caching_current_line()
   augroup END"}}}
 
   " Set rank.
@@ -114,7 +113,8 @@ endfunction"}}}
 
 function! neocomplcache#sources#buffer_complete#caching_current_line() "{{{
   " Current line caching.
-  return s:caching_current_buffer(line('.') - 1, line('.') + 1)
+  return s:caching_current_buffer(
+        \ max([1, line('.') - 5]), min([line('.') + 5, line('$')]))
 endfunction"}}}
 function! s:caching_current_buffer(start, end) "{{{
   " Current line caching.
@@ -295,6 +295,7 @@ function! s:check_cache() "{{{
 endfunction"}}}
 function! s:check_recache() "{{{
   if !s:exists_current_source()
+    call s:word_caching(bufnr('%'))
     return
   endif
 
@@ -304,10 +305,13 @@ function! s:check_recache() "{{{
   let source = s:buffer_sources[bufnr('%')]
 
   " Check buffer access time.
-  if source.cached_time > 0 &&
-        \ (source.cached_time < release_accessd_time
-        \  || (neocomplcache#util#has_vimproc() && line('$') != source.end_line))
+  if (source.cached_time > 0 && source.cached_time < release_accessd_time)
+        \  || (neocomplcache#util#has_vimproc() && line('$') != source.end_line)
     " Buffer recache.
+    if g:neocomplcache_enable_debug
+      echomsg 'Caching buffer: ' . bufname('%')
+    endif
+
     call s:word_caching(bufnr('%'))
   endif
 endfunction"}}}
