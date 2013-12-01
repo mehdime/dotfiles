@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 git_bundles = %w{
+  git://github.com/vim-scripts/vimwiki
   git://github.com/vim-scripts/molokai.git
   git://github.com/Shougo/neocomplcache.git
   git://github.com/ecomba/vim-ruby-refactoring.git
