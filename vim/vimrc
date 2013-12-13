@@ -86,7 +86,6 @@ nnoremap gk k
 nnoremap gj j
 
 set hlsearch
-set listchars=tab:××,trail:×,nbsp:×
 
 if has("gui_running")
   set lines=80
