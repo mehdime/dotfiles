@@ -1,6 +1,6 @@
 " Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
-filetype off 
+filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
@@ -23,6 +23,8 @@ let g:neocomplcache_enable_auto_select = 0
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='badwolf'
+
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -106,7 +108,7 @@ if has("gui_running")
 endif
 
 if has("gui_macvim")
-  " write on pretty much any event (including :q) 
+  " write on pretty much any event (including :q)
   set autowriteall
   set tabpagemax=100
   set guifont=Monofur\ for\ Powerline:h18
@@ -146,3 +148,4 @@ nmap n nzz
 nmap N Nzz
 nmap } }zz
 nmap { {zz
+imap jj <ESC>
