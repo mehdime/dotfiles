@@ -1,9 +1,6 @@
 [submodule "vim/bundle/vimwiki"]
 	path = vim/bundle/vimwiki
 	url = git://github.com/vim-scripts/vimwiki
-[submodule "vim/bundle/molokai.git"]
-	path = vim/bundle/molokai.git
-	url = git://github.com/vim-scripts/molokai.git
 [submodule "vim/bundle/neocomplcache.git"]
 	path = vim/bundle/neocomplcache.git
 	url = git://github.com/Shougo/neocomplcache.git
@@ -112,3 +109,21 @@
 [submodule "vim/extras/consolas-powerline-vim.git"]
 	path = vim/extras/consolas-powerline-vim.git
 	url = git://github.com/eugeneching/consolas-powerline-vim.git
+[submodule "vim/bundle/vim-razor.git"]
+	path = vim/bundle/vim-razor.git
+	url = git://github.com/adamclerk/vim-razor.git
+[submodule "vim/bundle\\snipmate.vim.git"]
+	path = vim/bundle\\snipmate.vim.git
+	url = https://github.com/msanders/snipmate.vim.git
+[submodule "vim/bundle/vim-colors-solarized"]
+	path = vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule "vim/bundle/vim-easymotion"]
+	path = vim/bundle/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion
+[submodule "vim/bundle/vim-shell"]
+	path = vim/bundle/vim-shell
+	url = https://github.com/xolox/vim-shell.git
+[submodule "vim/bundle/vim-misc"]
+	path = vim/bundle/vim-misc
+	url = https://github.com/xolox/vim-misc

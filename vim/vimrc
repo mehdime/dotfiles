@@ -5,7 +5,8 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 syntax on
-colorscheme molokai
+set background=dark
+colorscheme solarized
 filetype plugin indent on
 
 nmap <D-t> :tabedit .<CR>
@@ -65,8 +66,7 @@ let g:SuperTabCrClosePreview = 1
 
 set backspace=indent,eol,start
 
-set backup              " keep a backup file
-set backupdir=~/.vim/backups
+set nobackup            " do not keep backups
 set history=100         " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set incsearch           " do incremental searching
@@ -75,6 +75,7 @@ set shiftwidth=2
 set tabstop=2
 set helpheight=1000
 set list
+set noswapfile
 
 set completeopt=menu,menuone,preview
 set wildmode=longest,list:longest
@@ -133,7 +134,7 @@ hi    Visual term=reverse cterm=reverse ctermbg=9
 
 " Exchange
 nmap <A-j> ddp
-nmap <A-k> ddkP
+nmap <A-k> ddkp
 " nmap <A-w> "wdiw"sdlw"sP"wp
 
 " Brace completion
@@ -142,6 +143,11 @@ imap <leader>" ""<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 
+" Tabs
+nmap <C-t> :tabe<CR>
+nmap <C-l> :tabn<CR>
+nmap <C-h> :tabp<CR>
+
 " Auto center screen on some jumps
 nmap G Gzz
 nmap n nzz
@@ -149,3 +155,5 @@ nmap N Nzz
 nmap } }zz
 nmap { {zz
 imap jj <ESC>
+
+command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>

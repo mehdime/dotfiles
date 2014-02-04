@@ -1,5 +1,4 @@
-colorscheme molokai
-set guioptions=egrL
+set guioptions=
 set encoding=utf-8
 set guifont=Consolas\ for\ Powerline\ FixedD:h9
 
