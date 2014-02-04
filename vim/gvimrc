@@ -1,5 +1,7 @@
-colorscheme vividchalk
-set guioptions=egmrLt
+colorscheme molokai
+set guioptions=egrL
+set encoding=utf-8
+set guifont=Consolas\ for\ Powerline\ FixedD:h9
 
 hi IncSearch    gui=underline guifg=yellow  guibg=blue
 hi Search       gui=underline guifg=yellow  guibg=black

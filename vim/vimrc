@@ -5,9 +5,11 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 syntax on
+colorscheme molokai
 filetype plugin indent on
 
 nmap <D-t> :tabedit .<CR>
+set encoding=utf-8
 
 " nocomplcache stuff
 let g:neocomplcache_enable_at_startup = 1
@@ -19,8 +21,18 @@ let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_auto_completion_start_length = 1
 let g:neocomplcache_enable_auto_select = 0
 
-" Powerline
-let g:Powerline_symbols = 'fancy'
+" airline
+let g:airline#extensions#tabline#enabled = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
 
 " CTRL-P
 let g:ctrlp_open_new_file = 't'
@@ -116,3 +128,21 @@ xmap s <Plug>VSurround
 hi IncSearch term=reverse
 hi    Search term=reverse
 hi    Visual term=reverse cterm=reverse ctermbg=9
+
+" Exchange
+nmap <A-j> ddp
+nmap <A-k> ddkP
+" nmap <A-w> "wdiw"sdlw"sP"wp
+
+" Brace completion
+imap <leader>' ''<ESC>i
+imap <leader>" ""<ESC>i
+imap <leader>( ()<ESC>i
+imap <leader>[ []<ESC>i
+
+" Auto center screen on some jumps
+nmap G Gzz
+nmap n nzz
+nmap N Nzz
+nmap } }zz
+nmap { {zz
