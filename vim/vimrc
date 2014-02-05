@@ -1,5 +1,6 @@
 " Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
+au GUIEnter * simalt ~x "x on an English Windows version. n on a French one
 filetype off
 set rtp+=~/vimfiles/bundle/vundle
 call vundle#rc()
@@ -21,6 +22,8 @@ colorscheme solarized
 filetype plugin indent on
 set encoding=utf-8
 set nobomb
+set switchbuf+=usetab,newtab
+let g:miniBufExplModSelTarget = 1
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -77,6 +80,13 @@ set helpheight=1000
 set list
 set noswapfile
 
+if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+  let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
+  let &fillchars = "vert:\u259a,fold:\u00b7"
+else
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<
+endif
+
 set completeopt=menu,menuone,preview
 set wildmode=longest,list:longest
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.storyboard,*.storyboardc,*/vendor/*,*/build/*
@@ -98,8 +108,6 @@ nnoremap gj j
 set hlsearch
 
 if has("gui_running")
-  set lines=80
-  set columns=120
   set number
 endif
 
