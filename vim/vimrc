@@ -1,17 +1,30 @@
-﻿" Needed on some linux distros.
+" Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
 filetype off
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+set rtp+=~/vimfiles/bundle/vundle
+call vundle#rc()
+
+Bundle 'bling/vim-airline'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-fugitive'
+Bundle 'msanders/snipmate.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-shell'
+Bundle 'jistr/vim-nerdtree-tabs'
 
 syntax on
 set background=dark
 colorscheme solarized
 filetype plugin indent on
 set encoding=utf-8
+set nobomb
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 0
 let g:airline_theme='badwolf'
 
 let g:airline_symbols = {}
@@ -22,6 +35,7 @@ let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
+let g:airline_symbols.space = "\ua0"
 
 " CTRL-P
 let g:ctrlp_open_new_file = 't'
@@ -74,13 +88,6 @@ let g:shell_fullscreen_items = "mT"
 
 setlocal numberwidth=3
 
-map gb <C-^>
-vmap gl :<C-U>!blame <C-R>=expand("%:p") <CR> <C-R>=line("'<") <CR> <C-R>=line("'>") <CR> <CR>
-vmap # :TComment<CR>
-map - :Tabularize hash
-map <C-l> :nohl
-map <leader>a :Tabularize /=>\?<cr>
-
 " Make j/k move to next visual line instead of physical line
 " http://yubinkim.com/?p=6
 nnoremap k gk
@@ -102,14 +109,6 @@ if has("gui_macvim")
   set tabpagemax=100
   set guifont=Monofur\ for\ Powerline:h18
 endif
-
-" Nice statusbar
-set laststatus=2
-set statusline=
-set statusline+=%f\                    " file name
-set statusline+=%h%1*%m%r%w%0*         " flags
-set statusline+=%=                     " right align
-set statusline+=%-14.(%l,%c%V%)\ %<%P  " offset
 
 autocmd BufNewFile,BufRead *.css set fdm=marker fmr={,}
 
@@ -164,8 +163,3 @@ nmap go o<ESC>j
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
 
 noremap <leader>n :NERDTreeTabsToggle<CR>
-
-augroup myvimrc
-  au!
-  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
