@@ -72,6 +72,8 @@ set wildmode=longest,list:longest
 " set cursorcolumn " highlight the screen column of the cursor
 " set cursorline   " highlight the screen line of the cursor
 
+let g:shell_fullscreen_items = "mT"
+
 setlocal numberwidth=3
 
 map gb <C-^>
@@ -131,6 +133,20 @@ imap <leader>" ""<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 
+" Comma stuff
+nmap di, f,dT,
+nmap ci, f,cT,
+nmap da, f,ld2T,
+nmap ca, f,ld2T,i
+
+noremap ds{ F{xf}x
+noremap ds" F"x,x
+noremap ds' F'x,x
+noremap ds) F(xf)x
+noremap ds( F(xf)x
+noremap ds[ F[xf]x
+noremap ds] F[xf]x
+
 " Tabs
 nmap <C-t> :tabe<CR>
 nmap <C-l> :tabn<CR>
@@ -144,4 +160,9 @@ nmap } }zz
 nmap { {zz
 imap jj <ESC>
 
+nmap gO O<ESC>j
+nmap go o<ESC>j
+
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
+
+noremap <leader>n :NERDTreeTabsToggle<CR>
