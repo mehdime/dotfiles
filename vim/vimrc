@@ -1,4 +1,4 @@
-" Needed on some linux distros.
+﻿" Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
 filetype off
 runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -8,20 +8,7 @@ syntax on
 set background=dark
 colorscheme solarized
 filetype plugin indent on
-
-nmap <D-t> :tabedit .<CR>
 set encoding=utf-8
-
-" nocomplcache stuff
-let g:neocomplcache_enable_at_startup = 1
-
-" Snippets still don't work the way I want - tab doesn't jump to next
-" placeholder.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:neocomplcache_enable_auto_select = 1
-let g:neocomplcache_auto_completion_start_length = 1
-let g:neocomplcache_enable_auto_select = 0
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -83,6 +70,8 @@ set wildmode=longest,list:longest
 " set cursorcolumn " highlight the screen column of the cursor
 " set cursorline   " highlight the screen line of the cursor
 
+let g:shell_fullscreen_items = "mT"
+
 setlocal numberwidth=3
 
 map gb <C-^>
@@ -142,6 +131,20 @@ imap <leader>" ""<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 
+" Comma stuff
+nmap di, f,dT,
+nmap ci, f,cT,
+nmap da, f,ld2T,
+nmap ca, f,ld2T,i
+
+noremap ds{ F{xf}x
+noremap ds" F"x,x
+noremap ds' F'x,x
+noremap ds) F(xf)x
+noremap ds( F(xf)x
+noremap ds[ F[xf]x
+noremap ds] F[xf]x
+
 " Tabs
 nmap <C-t> :tabe<CR>
 nmap <C-l> :tabn<CR>
@@ -155,7 +158,12 @@ nmap } }zz
 nmap { {zz
 imap jj <ESC>
 
+nmap gO O<ESC>j
+nmap go o<ESC>j
+
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
+
+noremap <leader>n :NERDTreeTabsToggle<CR>
 
 augroup myvimrc
   au!
