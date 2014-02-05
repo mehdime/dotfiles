@@ -1,8 +1,8 @@
 " Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
 
 syntax on
 set background=dark
@@ -14,6 +14,7 @@ set encoding=utf-8
 
 " nocomplcache stuff
 let g:neocomplcache_enable_at_startup = 1
+
 " Snippets still don't work the way I want - tab doesn't jump to next
 " placeholder.
 imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -26,9 +27,7 @@ let g:neocomplcache_enable_auto_select = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='badwolf'
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+let g:airline_symbols = {}
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
@@ -157,3 +156,8 @@ nmap { {zz
 imap jj <ESC>
 
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
+
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END

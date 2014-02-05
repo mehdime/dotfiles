@@ -170,3 +170,6 @@
 	path = vim/bundle/vim-misc
 	url = https://github.com/xolox/vim-misc
   ignore = dirty
+[submodule "vim/bundle/vim-pathogen"]
+	path = vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
