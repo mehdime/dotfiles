@@ -14,6 +14,8 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-shell'
 Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'OrangeT/vim-csharp'
+Bundle 'trumpi/vim-razor'
 
 syntax on
 set background=dark
@@ -163,3 +165,7 @@ nmap go o<ESC>j
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
 
 noremap <leader>n :NERDTreeTabsToggle<CR>
+noremap <C-p> :CtrlP<CR>
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
