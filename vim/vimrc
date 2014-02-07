@@ -15,6 +15,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-shell'
 Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'wikitopian/hardmode'
 
 syntax on
 set background=dark
@@ -171,3 +172,5 @@ nmap go o<ESC>j
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
 
 noremap <leader>n :NERDTreeTabsToggle<CR>
+
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
