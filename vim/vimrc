@@ -1,4 +1,4 @@
-" Needed on some linux distros.
+﻿" Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
 au GUIEnter * simalt ~x "x on an English Windows version. n on a French one
 filetype off
@@ -17,6 +17,7 @@ Bundle 'xolox/vim-shell'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'OrangeT/vim-csharp'
 Bundle 'trumpi/vim-razor'
+Bundle 'wikitopian/hardmode'
 
 syntax on
 set background=dark
@@ -173,6 +174,8 @@ nmap go o<ESC>j
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
 
 noremap <leader>n :NERDTreeTabsToggle<CR>
+
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 noremap <C-p> :CtrlP<CR>
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
