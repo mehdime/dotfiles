@@ -26,6 +26,7 @@ endif
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
+Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
@@ -40,6 +41,7 @@ Bundle 'OrangeT/vim-csharp'
 Bundle 'trumpi/vim-razor'
 Bundle 'wikitopian/hardmode'
 Bundle 'reedes/vim-pencil'
+Bundle 'sjl/splice.vim'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
