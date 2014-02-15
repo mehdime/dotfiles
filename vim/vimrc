@@ -42,6 +42,12 @@ Bundle 'trumpi/vim-razor'
 Bundle 'wikitopian/hardmode'
 Bundle 'reedes/vim-pencil'
 Bundle 'sjl/splice.vim'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'docunext/closetag.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'vim-scripts/supertab.git'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/YankRing.vim'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -211,3 +217,8 @@ noremap <C-p> :CtrlP<CR>
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+let Tlist_Auto_Open = 1
+let Tlist_Compact_Format = 1
+let Tlist_Use_Right_Window = 1
+TlistOpen
