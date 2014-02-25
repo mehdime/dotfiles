@@ -201,11 +201,12 @@ map <tab> %
 nmap <C-j> ddp
 nmap <C-k> ddkp
 
-" Brace completion
+" Brace completion {{{
 imap <leader>' ''<ESC>i
 imap <leader>" ""<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
+" }}}
 " Next and Last {{{
 "
 " Motion for "next/last object".  "Last" here means "previous", not "final".
@@ -343,8 +344,7 @@ function! s:NextTextObject(motion, dir)
 endfunction
 
 " }}}
-
-" Comma stuff
+" Comma stuff {{{
 nmap di, f,dT,
 nmap ci, f,cT,
 nmap da, f,ld2T,
@@ -357,21 +357,20 @@ noremap ds) F(xf)x
 noremap ds( F(xf)x
 noremap ds[ F[xf]x
 noremap ds] F[xf]x
-
-" Tabs
+" }}}
+" Tabs {{{
 nmap <C-t> :tabe<CR>
 nmap <C-TAB> :tabn<CR>
 imap <C-TAB> <ESC>:tabn<CR>
-
-" Auto center screen on some jumps
+ }}}
+" Auto center screen on some jumps {{{
 nmap G Gzz
 nmap n nzz
 nmap N Nzz
 nmap } }zz
 nmap { {zz
 imap jj <ESC>
-
-" Windows
+" }}}
 nmap <C-l> <C-w>l
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
