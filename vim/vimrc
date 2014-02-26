@@ -52,6 +52,7 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'edsono/vim-matchit'
 Bundle 'xolox/vim-notes'
+Bundle 'xolox/vim-session'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -83,8 +84,8 @@ set history=100         " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set incsearch           " do incremental searching
 set expandtab
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 set helpheight=1000
 set list
 set noswapfile
@@ -119,6 +120,8 @@ endif
 
 set completeopt=menu,menuone,preview
 set wildmode=longest,list:longest
+set sessionoptions=buffers,curdir,folds,localoptions,resize,slash,tabpages,winpos,unix
+
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.storyboard,*.storyboardc,*/vendor/*,*/build/*
 
 " set cursorcolumn " highlight the screen column of the cursor
@@ -164,7 +167,7 @@ let g:surround_91 = "[\r]"
 let g:surround_60 = "<\r>"
 " }}}
 " Taglist {{{
-let Tlist_Auto_Open = 1
+let Tlist_Auto_Open = 0
 let Tlist_Compact_Format = 1
 let Tlist_Use_Right_Window = 1
 " }}}

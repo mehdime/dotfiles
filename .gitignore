@@ -3,4 +3,5 @@ subversion/auth
 vim/backups/*
 .DS_Store
 vim/.netrwhist
+vim/sessions/
 !.keep
