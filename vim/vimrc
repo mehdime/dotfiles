@@ -51,6 +51,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-dispatch'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'edsono/vim-matchit'
+Bundle 'xolox/vim-notes'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -171,6 +172,17 @@ let Tlist_Use_Right_Window = 1
 let g:yankstack_map_keys = 0
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" }}}
+" Pencil {{{
+let g:pencil#wrapModeDefault = 'hard'
+let g:pencil#textwidth = 74
+augroup pencil
+  autocmd!
+  autocmd filetype markdown call pencil#init()
+  autocmd filetype textile call pencil#init()
+  autocmd filetype text call pencil#init()
+  autocmd filetype notes call pencil#init()
+augroup END
 " }}}
 " }}}
 " Other settings {{{
@@ -345,14 +357,8 @@ noremap ds] F[xf]x
 
 " Tabs
 nmap <C-t> :tabe<CR>
-nmap <C-l> :tabn<CR>
-nmap <C-h> :tabp<CR>
-
-" Windows
-nmap <A-l> <C-w>l
-nmap <A-h> <C-w>h
-nmap <A-j> <C-w>j
-nmap <A-k> <C-w>k
+nmap <C-TAB> :tabn<CR>
+imap <C-TAB> <ESC>:tabn<CR>
 
 " Auto center screen on some jumps
 nmap G Gzz
@@ -361,11 +367,12 @@ nmap N Nzz
 nmap } }zz
 nmap { {zz
 imap jj <ESC>
+
 " Windows
-nmap <A-l> <C-w>l
-nmap <A-h> <C-w>h
-nmap <A-j> <C-w>j
-nmap <A-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
 
 nmap gO O<ESC>j
 nmap go o<ESC>j
@@ -565,7 +572,7 @@ endfunction
 
 " }}}
 " Quickedit {{{
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
 " }}}
 
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
