@@ -78,6 +78,7 @@ set nocompatible
 set autoread
 let g:miniBufExplModSelTarget = 1
 set backspace=indent,eol,start
+set lazyredraw
 
 set nobackup            " do not keep backups
 set history=100         " keep 50 lines of command line history
@@ -362,7 +363,7 @@ noremap ds] F[xf]x
 nmap <C-t> :tabe<CR>
 nmap <C-TAB> :tabn<CR>
 imap <C-TAB> <ESC>:tabn<CR>
- }}}
+" }}}
 " Auto center screen on some jumps {{{
 nmap G Gzz
 nmap n nzz
