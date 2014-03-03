@@ -28,7 +28,6 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
-Bundle 'msanders/snipmate.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-shell'
@@ -59,6 +58,8 @@ Bundle 'Yggdroot/indentLine'
 Bundle 'ivyl/vim-bling'
 Bundle 'davidoc/taskpaper.vim'
 Bundle 'vim-scripts/marvim'
+Bundle 'vim-scripts/xptemplate'
+Bundle 'zhaocai/GoldenView.Vim'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -173,8 +174,6 @@ noremap <leader>n :NERDTreeTabsToggle<CR>
 " tpope/vim-fugitive {{{
 
 " }}}
-" msanders/snipmate {{{
-" }}}
 " Lokaltog/vim-easymotion {{{
 " }}}
 " xolox/vim-misc {{{
@@ -215,6 +214,11 @@ let g:surround_91 = "[\r]"
 let g:surround_60 = "<\r>"
 " }}}
 " ervandew/supertab {{{
+" avoid key conflict
+let g:SuperTabMappingForward = '<Plug>supertabKey'
+
+" if nothing matched in xpt, try supertab
+let g:xptemplate_fallback = '<Plug>supertabKey'
 " }}}
 " maxbrunsfeld/vim-yankstack {{{
 let g:yankstack_map_keys = 0
@@ -252,6 +256,22 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 " davidoc/taskpaper.vim {{{
 " }}}
 " vim-scripts/marvim {{{
+" }}}
+" vim-scripts/xptemplate {{{
+" xpt uses <Tab> as trigger key
+let g:xptemplate_key = '<Tab>'
+
+" use <tab>/<S-tab> to navigate through pum. Optional
+let g:xptemplate_pum_tab_nav = 1
+
+" xpt triggers only when you typed whole name of a snippet. Optional
+let g:xptemplate_minimal_prefix = 'full'
+let g:xptemplate_vars = "author=Trevor Green&email=trevor@trumpi.co.za&SPargs="
+" }}}
+" zhaocai/GoldenView.Vim {{{
+let g:goldenview__enable_default_mapping = 0
+
+nmap <silent> <C-n> <Plug>GoldenViewSplit
 " }}}
 " }}}
 " Other settings {{{
