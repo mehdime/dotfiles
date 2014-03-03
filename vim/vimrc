@@ -53,6 +53,12 @@ Bundle 'vim-scripts/Conque-Shell'
 Bundle 'edsono/vim-matchit'
 Bundle 'xolox/vim-notes'
 Bundle 'xolox/vim-session'
+Bundle 'docunext/closetag.vim'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'Yggdroot/indentLine'
+Bundle 'ivyl/vim-bling'
+Bundle 'davidoc/taskpaper.vim'
+Bundle 'vim-scripts/marvim'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -67,8 +73,6 @@ endif
 au GUIEnter * simalt ~x "x on an English Windows version. n on a French one
 filetype off
 syntax on
-set background=dark
-colorscheme solarized
 filetype plugin indent on
 set encoding=utf-8
 set nobomb
@@ -91,6 +95,7 @@ set helpheight=1000
 set list
 set noswapfile
 set hlsearch
+let mapleader=","
 
 if has("gui_running")
   set number
@@ -134,7 +139,7 @@ setlocal numberwidth=3
 " }}}
 " Plugins {{{
 
-" airline {{{
+" bling/vim-airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_powerline_fonts = 0
@@ -150,34 +155,39 @@ let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 let g:airline_symbols.space = "\ua0"
 " }}}
-" CTRL-P {{{
+" altercation/vim-colors-solarized {{{
+set background=dark
+colorscheme solarized
+" }}}
+" kien/ctrlp.vim {{{
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_open_multiple_files = 't'
 let g:ctrlp_map = '<D-p>'
 let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'], }
 let g:ctrlp_working_path_mode = 'a'
+noremap <C-p> :CtrlP<CR>
 " }}}
-" Gist {{{
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
+" scroolose/nerdtree {{{
+noremap <leader>n :NERDTreeTabsToggle<CR>
 " }}}
-" Better surround {{{
-let g:surround_40 = "(\r)"
-let g:surround_91 = "[\r]"
-let g:surround_60 = "<\r>"
+" tpope/vim-fugitive {{{
+
 " }}}
-" Taglist {{{
-let Tlist_Auto_Open = 0
-let Tlist_Compact_Format = 1
-let Tlist_Use_Right_Window = 1
+" msanders/snipmate {{{
 " }}}
-" Yankstack {{{
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" Lokaltog/vim-easymotion {{{
 " }}}
-" Pencil {{{
+" xolox/vim-misc {{{
+" }}}
+" xolox/vim-shell {{{
+" }}}
+" jistr/vim-nerdtree-tabs {{{
+" }}}
+" OrangeT/vim-csharp {{{
+" }}}
+" trumpi/vim-razor {{{
+" }}}
+" reedes/vim-pencil {{{
 let g:pencil#wrapModeDefault = 'hard'
 let g:pencil#textwidth = 74
 augroup pencil
@@ -187,6 +197,61 @@ augroup pencil
   autocmd filetype text call pencil#init()
   autocmd filetype notes call pencil#init()
 augroup END
+" }}}
+" sjl/splice.vim {{{
+" }}}
+" vim-scripts/taglist.vim {{{
+let Tlist_Auto_Open = 0
+let Tlist_Compact_Format = 1
+let Tlist_Use_Right_Window = 1
+" }}}
+" docunext/closetag.vim {{{
+" }}}
+" scrooloose/nerdcommenter {{{
+" }}}
+" tpope/vim-surround {{{
+let g:surround_40 = "(\r)"
+let g:surround_91 = "[\r]"
+let g:surround_60 = "<\r>"
+" }}}
+" ervandew/supertab {{{
+" }}}
+" maxbrunsfeld/vim-yankstack {{{
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" }}}
+" jelera/vim-javascript-syntax {{{
+" }}}
+" kchmck/vim-coffee-script {{{
+" }}}
+" wavded/vim-stylus {{{
+" }}}
+" scrooloose/syntastic {{{
+" }}}
+" sjl/gundo.vim {{{
+" }}}
+" tpope/vim-dispatch {{{
+" }}}
+" vim-scripts/Conque-Shell {{{
+" }}}
+" edsono/vim-matchit {{{
+" }}}
+" xolox/vim-notes {{{
+" }}}
+" xolox/vim-session {{{
+" }}}
+" docunext/closetag.vim {{{
+" }}}
+" airblade/vim-gitgutter {{{
+" }}}
+" Yggdroot/indentLine {{{
+" }}}
+" ivyl/vim-bling {{{
+" }}}
+" davidoc/taskpaper.vim {{{
+" }}}
+" vim-scripts/marvim {{{
 " }}}
 " }}}
 " Other settings {{{
@@ -382,10 +447,7 @@ nmap go o<ESC>j
 
 command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
 
-noremap <leader>n :NERDTreeTabsToggle<CR>
-
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-noremap <C-p> :CtrlP<CR>
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
