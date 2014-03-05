@@ -28,6 +28,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-unimpaired'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-shell'
@@ -60,6 +61,7 @@ Bundle 'davidoc/taskpaper.vim'
 Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/xptemplate'
 Bundle 'zhaocai/GoldenView.Vim'
+Bundle 'kien/rainbow_parentheses.vim'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -163,6 +165,7 @@ colorscheme solarized
 " kien/ctrlp.vim {{{
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_open_multiple_files = 't'
+let g:ctrlp_max_files=0
 let g:ctrlp_map = '<D-p>'
 let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'], }
 let g:ctrlp_working_path_mode = 'a'
@@ -173,6 +176,8 @@ noremap <leader>n :NERDTreeTabsToggle<CR>
 " }}}
 " tpope/vim-fugitive {{{
 
+" }}}
+" tpope/vim-unimpaired {{{
 " }}}
 " Lokaltog/vim-easymotion {{{
 " }}}
@@ -232,6 +237,8 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 " wavded/vim-stylus {{{
 " }}}
 " scrooloose/syntastic {{{
+" let g:syntastic_jshint_exec="C:\\Program Files\\nodejs\\node_modules\\.bin\\jshint.cmd"
+let g:syntastic_javascript_checkers = ['jshint']
 " }}}
 " sjl/gundo.vim {{{
 " }}}
@@ -273,6 +280,8 @@ let g:goldenview__enable_default_mapping = 0
 
 nmap <silent> <C-n> <Plug>GoldenViewSplit
 " }}}
+" kien/rainbow_parentheses.vim {{{
+" }}}
 " }}}
 " Other settings {{{
 " Make j/k move to next visual line instead of physical line
@@ -302,7 +311,7 @@ imap <leader>[ []<ESC>i
 " object of the given type.  These don't necessarily have to be in the current
 " line.
 "
-" Currently works for (, [, {, and their shortcuts b, r, B. 
+" Currently works for (, [, {, and their shortcuts b, r, B.
 "
 " Next kind of works for ' and " as long as there are no escaped versions of
 " them in the string (TODO: fix that).  Last is currently broken for quotes
@@ -369,7 +378,7 @@ function! s:NextTextObject(motion, dir)
         let open = ''
         let close = ''
 
-        if c ==# "(" 
+        if c ==# "("
             let open = "("
             let close = ")"
         elseif c ==# "{"
@@ -494,7 +503,7 @@ vnoremap ar a[
 " object of the given type.  These don't necessarily have to be in the current
 " line.
 "
-" Currently works for (, [, {, and their shortcuts b, r, B. 
+" Currently works for (, [, {, and their shortcuts b, r, B.
 "
 " Next kind of works for ' and " as long as there are no escaped versions of
 " them in the string (TODO: fix that).  Last is currently broken for quotes
@@ -561,7 +570,7 @@ function! s:NextTextObject(motion, dir)
         let open = ''
         let close = ''
 
-        if c ==# "(" 
+        if c ==# "("
             let open = "("
             let close = ")"
         elseif c ==# "{"
