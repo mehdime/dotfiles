@@ -62,6 +62,7 @@ Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/xptemplate'
 Bundle 'zhaocai/GoldenView.Vim'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'PProvost/vim-ps1'
 
 if exists('s:bootstrap') && s:bootstrap
   redraw!
@@ -282,6 +283,8 @@ nmap <silent> <C-n> <Plug>GoldenViewSplit
 " }}}
 " kien/rainbow_parentheses.vim {{{
 " }}}
+" PProvost/vim-ps1 {{{
+" }}}
 " }}}
 " Other settings {{{
 " Make j/k move to next visual line instead of physical line
@@ -483,6 +486,9 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " Source
 vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+
+" Quick-fix
+nnoremap <leader>s :%s/\s\+$//g<cr>
 
 " Text objects ------------------------------------------------------------ {{{
 
