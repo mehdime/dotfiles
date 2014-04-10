@@ -4,5 +4,6 @@ fi
 
 complete -C ~/.bash/mycompletions/rake.rb -o default rake
 
+source ~/.bash/mycompletions/git-completion.bash
 source ~/.bash/mycompletions/git-prompt.sh
 

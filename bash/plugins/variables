@@ -14,6 +14,13 @@ export VIM_APP_DIR=/Applications
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_DESCRIBE_STYLE="branch"
+export GIT_PS1_SHOWUPSTREAM="auto git"
+
 export LESS="-X -M -E -R"
 # export LESSOPEN="| $HOME/bin/lesspipe.sh %s"
 export LS_OPTIONS="--color=yes  -F -b -T 0"
