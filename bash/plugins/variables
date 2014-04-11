@@ -19,14 +19,14 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWCOLORHINTS=1
 export GIT_PS1_DESCRIBE_STYLE="branch"
-export GIT_PS1_SHOWUPSTREAM="auto git"
+export GIT_PS1_SHOWUPSTREAM="auto git verbose"
 
 export LESS="-X -M -E -R"
 # export LESSOPEN="| $HOME/bin/lesspipe.sh %s"
 export LS_OPTIONS="--color=yes  -F -b -T 0"
 
-export PATH=~/.rbenv/shims:$PATH
-export PATH=~/bin:$PATH
+#export PATH=~/.rbenv/shims:$PATH
+#export PATH=~/bin:$PATH
 
 [ $TERM = "screen" ] && export TERM=xterm
 
